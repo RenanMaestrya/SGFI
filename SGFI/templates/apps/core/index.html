@@ -2,64 +2,37 @@
 
 {% load static %}
 
-{% block main %}
-<style>
-    .container {
-        display: flex;
-        flex-direction: column;
-        width: 400px;
-        justify-content: center;
-        align-items: center;
-        gap: 24px;
-    }
-
-    .container button {
-        width: 100%;
-    }
-
-    span[class^="subtitle"] {
-        color: var(--neutral-800);
-        text-align: center;
-    }
-
-    .splitter {
-        width: 148px;
-        height: 2px;
-        background-color: var(--neutral-300);
-    }
-
-    .wrapper {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-    }
-
-    h1 {
-        text-align: center;
-    }
-</style>
-
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/button.css' %}">
-{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/footer.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/pages/index.css' %}">
+{% endblock css %}
 
-<main class="wrapper">
-    <h1 class="headline-1">
-        Sistema de Gerenciamento da Fila de Impressão
-    </h1>
+{% block main %}
 
-    <div class="container">
-        <img src="{% static 'assets/home.svg' %}" alt="Personagem lendo uma caderneta">
-    
-        <span class="subtitle-1">É necessário fazer o login com o SUAP para continuar</span>
-    
-        <div class="splitter"></div>
-    
-        <button class="base default">
-            <span href="/" class="button-text">Login com suap</span>
-        </button>
-    </div>
-</main>
+<div class="global-wrapper">
+{% include 'apps/core/header.html' %}
+
+    <main class="wrapper">
+        <h1 class="headline-1">
+            Sistema de Gerenciamento da Fila de Impressão
+        </h1>
+
+        <div class="container">
+            <img src="{% static 'assets/home.svg' %}" alt="Personagem lendo uma caderneta">
+        
+            <span class="subtitle-1">É necessário fazer o login com o SUAP para continuar</span>
+        
+            <div class="splitter"></div>
+        
+            <button class="base default">
+                <span href="/" class="button-text">Login com suap</span>
+            </button>
+        </div>
+    </main>
+
+{% include 'apps/core/footer.html' %}
+</div>
 {% endblock %}
 

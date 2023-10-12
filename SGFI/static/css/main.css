@@ -37,7 +37,7 @@
   font-family: "Poppins";
   font-weight: 300;
   font-style: normal;
-  line-height: 64px;
+  line-height: 80px;
   letter-spacing: -0.5px;
   text-decoration: none;
   text-transform: none;
@@ -153,4 +153,5 @@
 body,
 html {
   background-color: var(--neutral-background);
+  min-height: 100vh;
 }
