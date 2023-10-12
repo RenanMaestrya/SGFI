@@ -1,0 +1,70 @@
+.base {
+  height: 48px;
+  width: 192px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.default {
+  background-color: var(--brand-500);
+  color: var(--neutral-white);
+}
+
+.default:hover {
+  background-color: var(--brand-400);
+}
+
+.default:active,
+.default:focus {
+  background-color: var(--brand-700);
+}
+
+.default:disabled {
+  cursor: not-allowed;
+  background-color: var(--neutral-300);
+  color: var(--neutral-500);
+}
+
+.outline {
+  background-color: transparent;
+  border: 1px solid var(--brand-500);
+  color: var(--brand-500);
+}
+
+.outline:hover {
+  border-color: var(--brand-400);
+  color: var(--brand-400);
+}
+
+.outline:active,
+.outline:focus {
+  border-color: var(--brand-700);
+  color: var(--brand-700);
+}
+
+.outline:disabled {
+  cursor: not-allowed;
+  border-color: var(--neutral-300);
+  color: var(--neutral-500);
+}
+
+.ghost {
+  background-color: transparent;
+  color: var(--brand-500);
+}
+
+.ghost:hover {
+  color: var(--brand-400);
+}
+
+.ghost:active,
+.ghost:focus {
+  color: var(--brand-700);
+}
+
+.ghost:disabled {
+  cursor: not-allowed;
+  color: var(--neutral-500);
+}
