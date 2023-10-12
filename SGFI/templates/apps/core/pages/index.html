@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/button.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/footer.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/pages/index.css' %}">
+{% endblock css %}
+
+{% block main %}
+
+<div class="global-wrapper">
+{% include 'apps/core/header.html' %}
+
+    <main class="wrapper">
+        <h1 class="headline-1">
+            Sistema de Gerenciamento da Fila de Impressão
+        </h1>
+
+        <div class="container">
+            <img src="{% static 'assets/home.svg' %}" alt="Personagem lendo uma caderneta">
+        
+            <span class="subtitle-1">É necessário fazer o login com o SUAP para continuar</span>
+        
+            <div class="splitter"></div>
+        
+            <button class="base default">
+                <span href="/" class="button-text">Login com suap</span>
+            </button>
+        </div>
+    </main>
+
+{% include 'apps/core/footer.html' %}
+</div>
+{% endblock %}
+
