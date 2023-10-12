@@ -153,5 +153,29 @@
 body,
 html {
   background-color: var(--neutral-background);
-  min-height: 100vh;
+}
+
+.global-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  height: 100vh;
+}
+
+.global-container {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 1040px;
+  width: 100%;
+}
+
+/* Responsive styles using media queries */
+@media screen and (max-width: 1024px) {
+  .global-container {
+    max-width: 100%; /* Make the container full width on smaller screens */
+    padding: 0 16px;
+  }
 }

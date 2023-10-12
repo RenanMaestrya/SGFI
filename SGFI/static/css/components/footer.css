@@ -4,4 +4,6 @@ footer {
   align-items: center;
   background-color: var(--neutral-white);
   padding-block: 16px;
+  width: 100%;
+  margin-top: 24px;
 }

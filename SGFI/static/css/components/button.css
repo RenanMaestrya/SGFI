@@ -68,3 +68,25 @@
   cursor: not-allowed;
   color: var(--neutral-500);
 }
+
+.neutral {
+  background-color: var(--neutral-200);
+  color: var(--neutral-700);
+}
+
+.neutral:hover {
+  background-color: var(--neutral-300);
+  color: var(--neutral-800);
+}
+
+.neutral:active,
+.neutral:focus {
+  background-color: var(--neutral-400);
+  color: var(--neutral-900);
+}
+
+.neutral:disabled {
+  cursor: not-allowed;
+  background-color: var(--neutral-300);
+  color: var(--neutral-500);
+}

@@ -6,31 +6,50 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/button.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/footer.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/header.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/pages/index.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/input.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/pages/form.css' %}">
 {% endblock css %}
+
+{% block title %}Formulário de impressão - SGFI{% endblock %}
 
 {% block main %}
 
-<div class="global-wrapper">
 {% include 'apps/core/header.html' %}
+<div class="global-wrapper">
 
-    <main class="wrapper">
-        <h1 class="headline-1">
-            Sistema de Gerenciamento da Fila de Impressão
-        </h1>
-
-        <div class="container">
-            <img src="{% static 'assets/home.svg' %}" alt="Personagem lendo uma caderneta">
-        
-            <span class="subtitle-1">É necessário fazer o login com o SUAP para continuar</span>
-        
-            <div class="splitter"></div>
-        
-            <button class="base default">
-                <span href="/" class="button-text">Login com suap</span>
-            </button>
+    <div class="global-container">
+        <div class="title">
+            <h3 class="headline-3">Solicite uma impressão</h3>
+            <h5 class="headline-5">Preencha as informações abaixo corretamente para solicitar uma impressão.</h5>
         </div>
-    </main>
+        <main class="wrapper">
+            <form action="" class="register__form">
+                <div class="input__wrapper body-2">
+                    <label for="document" class="required">Documento</label>
+                    <input class="base__input" type="file" name="document" id="document">
+                </div>
+        
+                <div class="input__wrapper body-2">
+                    <label for="quantity" class="required">Quantidade de cópias</label>
+                    <input class="base__input" type="number" name="quantity" id="quantity" placeholder="Informe a quantidade de cópias do documento" min="1">
+                </div>
+        
+                <div class="input__wrapper body-2">
+                    <label for="leaving_date" class="required">Data de retirada</label>
+                    <input class="base__input" type="datetime-local" name="leaving_date" id="leaving_date" placeholder="Informe a data que deseja retirar">
+                </div>
+        
+                <div class="input__wrapper body-2">
+                    <label for="observations">Observações</label>
+                    <textarea class="base__input textarea" name="observations" id="observations" placeholder="Adicione informações extras que deseja enviar para o(a) administrador(a) da impressão..."></textarea>
+                </div>
+    
+                <button class="base default" type="submit">
+                    <span class="button-text">Enviar</span>
+                </button>
+            </form>
+        </main>
+    </div>
 
 {% include 'apps/core/footer.html' %}
 </div>
