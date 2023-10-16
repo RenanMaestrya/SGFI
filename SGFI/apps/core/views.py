@@ -7,3 +7,6 @@ def index(request):
 
 def form(request):
     return render(request, 'apps/core/pages/form.html')
+
+def form(request):
+    return render(request, 'apps/core/pages/dashboard.html')

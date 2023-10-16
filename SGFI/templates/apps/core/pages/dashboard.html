@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/button.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/footer.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/input.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/pages/form.css' %}">
+{% endblock css %}
+
+{% block title %}Formulário de impressão - SGFI{% endblock %}
+
+{% block main %}
+
+{% include 'apps/core/header.html' %}
+<div class="global-wrapper">
+
+    <div class="global-container">
+        <div class="title">
+            <h3 class="headline-4">Dashboard</h3>
+            <h5 class="subtitle-1">Aqui você pode verificar suas solicitações. A cada duas semanas, o histórico de impressões e retiradas será limpo..</h5>
+        </div>
+        <main class="wrapper">
+        </main>
+    </div>
+
+{% include 'apps/core/footer.html' %}
+</div>
+{% endblock %}
+
