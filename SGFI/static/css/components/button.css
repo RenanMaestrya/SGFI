@@ -90,3 +90,10 @@
   background-color: var(--neutral-300);
   color: var(--neutral-500);
 }
+
+.new-alert {
+  width: 260px;
+  border-radius: 100px;
+  background-color: var(--light-green-100);
+  color: var(--brand-500);
+}
