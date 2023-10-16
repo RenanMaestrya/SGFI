@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/button.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/footer.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/input.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/pages/history.css' %}">
+{% endblock css %}
+
+{% block title %}histórico de impressão - SGFI{% endblock %}
+
+{% block main %}
+
+{% include 'apps/core/header.html' %}
+<div class="global-wrapper">
+
+    <div class="global-container">
+        <div class="title">
+            <h3 class="headline-4">Histórico</h3>
+            <h5 class="subtitle-1">Abaixo você pode visualizar um histórico completo de todas as solicitações ao sistema</h5>
+        </div>
+        <main class="global-container ">
+            
+            
+        </main>
+    </div>
+
+{% include 'apps/core/footer.html' %}
+</div>
+{% endblock %}
+
