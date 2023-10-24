@@ -30,7 +30,7 @@
             </h3>
             <h5 class="subtitle-1">Aqui você pode verificar suas solicitações. A cada duas semanas, o histórico de impressões e retiradas será limpo.</h5>
         </div>
-        <main class="global-container ">
+        <main class="global-container-no-padding">
             {% if role == "admin" %}
                 <div class="button-div">
                     <button class="base new-alert" type="submit">
@@ -41,25 +41,47 @@
 
             <div class="general">
                 <div class="kanban">
-                    <div class="header tint-pink">
+                    <div class="kanban-header tint-pink">
                         <span class="subtitle-1 text-tint-pink">Pendentes</span>
                         <span class="subtitle-1 text-tint-pink">99</span>
                     </div>
-                    {% include 'apps/core/card.html' %}
+
+                    <div class="kanban-content">
+                        {% for item in requests %}
+                            {% if item.status == "pending" %}
+                                {% include 'apps/core/card.html' with data=item %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
                 <div class="kanban">
-                    <div class="header tint-green">
+                    <div class="kanban-header tint-green">
                         <span class="subtitle-1 text-tint-green">Impressos</span>
                         <span class="subtitle-1 text-tint-green">99</span>
+                    </div>
+
+                    <div class="kanban-content">
+                        {% for item in requests %}
+                            {% if item.status == "printed" %}
+                                {% include 'apps/core/card.html' with data=item %}
+                            {% endif %}
+                        {% endfor %}
                     </div>
                     
                 </div>
                 <div class="kanban">
-                    <div class="header tint-blue">
+                    <div class="kanban-header tint-blue">
                         <span class="subtitle-1 text-tint-blue">Retirados</span>
                         <span class="subtitle-1 text-tint-blue">99</span>
                     </div>
 
+                    <div class="kanban-content">
+                        {% for item in requests %}
+                            {% if item.status == "withdrawn" %}
+                                {% include 'apps/core/card.html' with data=item %}
+                            {% endif %}
+                        {% endfor %}
+                    </div>
                 </div>
             </div>
             

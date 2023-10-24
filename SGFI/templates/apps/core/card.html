@@ -1,24 +1,24 @@
 {% load static %}
 
-<div class="container">
-    <span class="label caption">solicitado em 16/02/2023</span>
+<div class="container {{ data.status }}">
+    <span class="label caption">solicitado em {{ data.requested_at }}</span>
 
-    <h3 id="requester" class="subtitle-1">John Dee Foo Bar</h3>
+    <h3 id="requester" class="subtitle-1">{{ data.requested_by }}</h3>
     <div class="row" style="justify-content: space-between;">
         <div class="row">
             <img src="{% static 'assets/paperclip.svg' %}" alt="Ícone de anexo">
-            <span class="body-2">Provas de Matemática</span>
+            <span class="body-2 attachment">{{ data.attachment }}</span>
         </div>
-        <span class="caption">x16</span>
+        <span class="caption">x{{ data.attachment_count }}</span>
     </div>
 
     <span class="label caption">retirada:</span>
     <div class="row">
         <img src="{% static 'assets/calendar.svg' %}" alt="Ícone de calendário">
-        <p class="caption">17/02/2023</p>
+        <p class="caption">{{ data.withdraw_date }}</p>
     </div>
     <div class="row">
         <img src="{% static 'assets/clock.svg' %}" alt="Ícone de relógio">
-        <p class="caption">16:30</p>
+        <p class="caption">{{ data.withdraw_time }}</p>
     </div>
 </div>
