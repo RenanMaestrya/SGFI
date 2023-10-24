@@ -5,6 +5,7 @@
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/button.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/footer.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/card.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/header.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/input.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/pages/dashboard.css' %}">
@@ -15,6 +16,7 @@
 {% block main %}
 
 {% include 'apps/core/header.html' with role=role %}
+
 <div class="global-wrapper">
 
     <div class="global-container">
@@ -43,6 +45,7 @@
                         <span class="subtitle-1 text-tint-pink">Pendentes</span>
                         <span class="subtitle-1 text-tint-pink">99</span>
                     </div>
+                    {% include 'apps/core/card.html' %}
                 </div>
                 <div class="kanban">
                     <div class="header tint-green">

@@ -1,0 +1,24 @@
+{% load static %}
+
+<div class="container">
+    <span class="label caption">solicitado em 16/02/2023</span>
+
+    <h3 id="requester" class="subtitle-1">John Dee Foo Bar</h3>
+    <div class="row" style="justify-content: space-between;">
+        <div class="row">
+            <img src="{% static 'assets/paperclip.svg' %}" alt="Ícone de anexo">
+            <span class="body-2">Provas de Matemática</span>
+        </div>
+        <span class="caption">x16</span>
+    </div>
+
+    <span class="label caption">retirada:</span>
+    <div class="row">
+        <img src="{% static 'assets/calendar.svg' %}" alt="Ícone de calendário">
+        <p class="caption">17/02/2023</p>
+    </div>
+    <div class="row">
+        <img src="{% static 'assets/clock.svg' %}" alt="Ícone de relógio">
+        <p class="caption">16:30</p>
+    </div>
+</div>
