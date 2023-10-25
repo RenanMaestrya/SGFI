@@ -44,16 +44,14 @@
                         <span class="subtitle-2 base-label secondary-label">
                             Retirado
                         </span>
-
                     </div>
                 </div>
-
                     <div class="table-column">
                         {% for data in requests %}
                             {% include 'apps/core/historyCard.html' with data=data }
                         {% endfor %}
                     </div>
-
+            </div>
         </main>
     </div>
 
