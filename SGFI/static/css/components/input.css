@@ -36,6 +36,11 @@
   gap: 4px;
 }
 
+.modal__input {
+  background: var(--neutral-150, #F1F1F1);
+  border: 1px solid var(--neutral-150, #E0E0E0);
+}
+
 .input__wrapper label[class="required"]::after {
   content: "*";
   color: var(--error-500, #d32f2f);

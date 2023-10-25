@@ -182,7 +182,10 @@ def dashboard(request):
     return render(request, 'apps/core/pages/dashboard.html', { 'role': role, 'requests': context })
 
 def history(request):
-    role = 'admin'
+    role = 'user'
     context= data
+    
+    if role == 'user':
+        return render(request, 'apps/core/pages/401.html', { 'role': role })
     
     return render(request, 'apps/core/pages/history.html', { 'role': role, 'requests': context })
