@@ -8,6 +8,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/card.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/header.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/input.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/modal.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/pages/dashboard.css' %}">
 {% endblock css %}
 
@@ -16,6 +17,9 @@
 {% block main %}
 
 {% include 'apps/core/header.html' with role=role %}
+
+{% include 'modal.html' %}
+{% include 'modal-alert.html' %}
 
 <div class="global-wrapper">
 
@@ -33,7 +37,7 @@
         <main class="global-container-no-padding">
             {% if role == "admin" %}
                 <div class="button-div">
-                    <button class="base new-alert" type="submit">
+                    <button class="base new-alert" id="openNewAlertModal">
                         <span class="button-text">+ Cadastrar novo aviso </span>
                     </button>
                 </div>
@@ -90,5 +94,7 @@
 
 {% include 'apps/core/footer.html' %}
 </div>
+
+<script src="{% static 'scripts/dashboard.js' %}"></script>
 {% endblock %}
 
