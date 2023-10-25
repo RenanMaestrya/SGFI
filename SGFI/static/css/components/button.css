@@ -97,3 +97,19 @@
   background-color: var(--light-green-100);
   color: var(--brand-500);
 }
+
+.new-alert:hover {
+  background-color: var(--light-green-300);
+}
+
+.new-alert:active,
+.new-alert:focus {
+  background-color: var(--light-green-600);
+  color: var(--neutral-black);
+}
+
+.new-alert:disabled {
+  cursor: not-allowed;
+  background-color: var(--neutral-300);
+  color: var(--neutral-500);
+}

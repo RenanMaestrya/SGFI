@@ -10,18 +10,29 @@
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
-    gap: 16px
+    gap: 16px;
+    overflow-x: auto;
+    overflow-y: hidden;
 }
 
 .kanban {
+    min-width: 300px;
     width: 100%;
     height: 100vh;
     background-color: var(--neutral-white);
     border-radius: 16px;
-
 }
 
-.header {
+.kanban-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 8px;
+    height: 100%;
+}
+
+.kanban-header {
     flex: 1;
     height: 56px;
     display: flex;
