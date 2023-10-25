@@ -5,11 +5,36 @@
         <div class="row">
             <span class="body-2">{{ data.requested_by }}</span>
         </div>
-        
-    </div>
-    <div class="percent40">
         <div class="row">
-            <span class="body-2">{{ data. }}</span>
+            <span class="body-2">{{ data.attachment }}</span>
         </div>
     </div>
+
+    <div class="percent40">
+        <div class="row">
+            <span class="body-2">
+                {% if data.status == 'withdrawn' %}
+                    <img src="{% static 'assets/check.svg' %}" alt="Ícone de check">
+                {% else %}
+                    <img src="{% static 'assets/dell.svg' %}" alt="Ícone de cancel">
+                {% endif %}
+            </span>
+        </div>
+
+        <div class="row">
+            <span class="body-2">{{ data.requested_at }}</span>
+        </div>
+
+        <div class="row">
+            <span class="body-2">
+                {% if data.status == 'withdrawn' %}
+                    {{ data.withdrawn_at }}
+                {% else %}
+                    -
+                {% endif %}
+            </span>
+        </div>
+    </div>
+
+
 </div>
