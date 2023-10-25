@@ -7,6 +7,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/footer.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/header.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/input.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/historyCard.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/pages/history.css' %}">
 {% endblock css %}
 
@@ -17,7 +18,6 @@
 {% include 'apps/core/header.html' with role=role %}
 
 <div class="global-wrapper">
-
     <div class="global-container">
         <div class="title">
             <h3 class="headline-4">Histórico</h3>
@@ -34,6 +34,7 @@
                             Conteúdos
                         </span>
                     </div>
+
                     <div class="percent40">
                         <span class="subtitle-2 base-label secondary-label">
                             Foi retirado?
@@ -45,17 +46,16 @@
                             Retirado
                         </span>
                     </div>
+
                 </div>
-                    <div class="table-column">
-                        {% for data in requests %}
-                            {% include 'apps/core/historyCard.html' with data=data }
-                        {% endfor %}
-                    </div>
+                <div class="table-column">
+                    {% for data in requests.prints %}
+                        {% include 'apps/core/historyCard.html' with data=data %}
+                    {% endfor %}
+                </div>
             </div>
         </main>
     </div>
-
-{% include 'apps/core/footer.html' %}
+    {% include 'apps/core/footer.html' %}
 </div>
 {% endblock %}
-
