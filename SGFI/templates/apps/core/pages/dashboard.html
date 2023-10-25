@@ -43,11 +43,11 @@
                 <div class="kanban">
                     <div class="kanban-header tint-pink">
                         <span class="subtitle-1 text-tint-pink">Pendentes</span>
-                        <span class="subtitle-1 text-tint-pink">99</span>
+                        <span class="subtitle-1 text-tint-pink">{{ requests.pending_count }}</span>
                     </div>
 
                     <div class="kanban-content">
-                        {% for item in requests %}
+                        {% for item in requests.prints %}
                             {% if item.status == "pending" %}
                                 {% include 'apps/core/card.html' with data=item %}
                             {% endif %}
@@ -57,11 +57,11 @@
                 <div class="kanban">
                     <div class="kanban-header tint-green">
                         <span class="subtitle-1 text-tint-green">Impressos</span>
-                        <span class="subtitle-1 text-tint-green">99</span>
+                        <span class="subtitle-1 text-tint-green">{{ requests.printed_count }}</span>
                     </div>
 
                     <div class="kanban-content">
-                        {% for item in requests %}
+                        {% for item in requests.prints %}
                             {% if item.status == "printed" %}
                                 {% include 'apps/core/card.html' with data=item %}
                             {% endif %}
@@ -72,11 +72,11 @@
                 <div class="kanban">
                     <div class="kanban-header tint-blue">
                         <span class="subtitle-1 text-tint-blue">Retirados</span>
-                        <span class="subtitle-1 text-tint-blue">99</span>
+                        <span class="subtitle-1 text-tint-blue">{{ requests.withdrawn_count }}</span>
                     </div>
 
                     <div class="kanban-content">
-                        {% for item in requests %}
+                        {% for item in requests.prints %}
                             {% if item.status == "withdrawn" %}
                                 {% include 'apps/core/card.html' with data=item %}
                             {% endif %}

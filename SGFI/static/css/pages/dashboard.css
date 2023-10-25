@@ -1,3 +1,20 @@
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+  }
+  
+  ::-webkit-scrollbar-track {
+    background: #F2F2F2;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background: #BDBDBD;
+  }
+  
+  ::-webkit-scrollbar-thumb:hover {
+    background: #6E6E6E;
+  }
+
 .button-div {
     display: flex;
     justify-content: flex-start;
@@ -18,18 +35,20 @@
 .kanban {
     min-width: 300px;
     width: 100%;
-    height: 100vh;
+    height: 100svh;
+    max-height: 100svh;
     background-color: var(--neutral-white);
     border-radius: 16px;
+    overflow: hidden;
 }
 
 .kanban-content {
-    flex: 1;
+    overflow-y: auto;
+    max-height: calc(100vh - 88px);
     display: flex;
     flex-direction: column;
     gap: 8px;
     padding: 8px;
-    height: 100%;
 }
 
 .kanban-header {
