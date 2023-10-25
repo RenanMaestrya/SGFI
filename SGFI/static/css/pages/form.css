@@ -1,0 +1,33 @@
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.register__form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  width: 100%;
+  max-width: 600px;
+}
+
+button[type="submit"] {
+  width: 100%;
+}
+
+.title {
+  margin-bottom: 24px;
+  align-self: flex-start;
+}
+
+.title h5 {
+  color: var(--neutral-500);
+}
+
+@media screen and (max-width: 375px) {
+  .register__form {
+    max-width: 100%;
+  }
+}
