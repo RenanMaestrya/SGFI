@@ -3,9 +3,10 @@
 </h1>
 
 <p align="center">
-  <a href="#-tech">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-project">Projeto</a>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-run">Como executar</a>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-tecnologias">Tecnologias</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-projeto">Projeto</a>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-como-executar">Como executar</a>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#-andamento">Andamento</a>&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#-extras">Extras</a>&nbsp;&nbsp;
 </p>
 
@@ -47,6 +48,16 @@ python manage.py runserver
 ```
 
 3 - Por fim, o projeto estará rodando, por padrão, em http://localhost:8000/
+
+## 🎯 Andamento
+
+- [x] Diagrama Entidade-Relacionamento
+- [x] Diagrama Casos de Uso
+- [x] Protótipo no Figma
+- [x] Front-end interativo
+- [ ] Banco de dados
+- [ ] Back-end
+- [ ] Front-end consumindo Back-end
 
 ## 🔎 Extras
 
