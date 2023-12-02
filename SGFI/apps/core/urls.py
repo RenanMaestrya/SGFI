@@ -1,10 +1,11 @@
 from django.urls import path
-from .views import *
+from .views import PrintCreateView, PrintListView, IndexView, HistoryListView, LogoutView
 
 
 urlpatterns = [
-    path('', index, name='index'),
-    path('solicitar/', form, name='solicitar'),
-    path('dashboard/', dashboard, name='dashboard'),
-    path('historico/', history, name='historico'),
+    path('', IndexView.as_view(), name='index'),
+    path('solicitar/', PrintCreateView.as_view(), name='solicitar'),
+    path('dashboard/', PrintListView.as_view(), name='dashboard'),
+    path('historico/', HistoryListView.as_view(), name='historico'),
+    path('logout/', LogoutView, name='logout'),
 ]

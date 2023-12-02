@@ -40,5 +40,6 @@ class SuapOAuth2(BaseOAuth2):
             'email': response['email'],
             'identification': response['identificacao'],
             'role': response['tipo_usuario'],
-            'social_name': response['nome_social']
+            'social_name': response['nome_social'],
+            'full_name': response['nome'],
         }

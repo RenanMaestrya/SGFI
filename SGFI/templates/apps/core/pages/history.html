@@ -15,7 +15,7 @@
 
 {% block main %}
 
-{% include 'apps/core/header.html' with role=role %}
+{% include 'apps/core/header.html' with user=user %}
 
 <div class="global-wrapper">
     <div class="global-container">
@@ -49,7 +49,7 @@
 
                 </div>
                 <div class="table-column">
-                    {% for data in requests.prints %}
+                    {% for data in prints %}
                         {% include 'apps/core/historyCard.html' with data=data %}
                     {% endfor %}
                 </div>

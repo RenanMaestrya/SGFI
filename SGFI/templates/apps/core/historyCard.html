@@ -3,7 +3,7 @@
 <div class="card-row">
     <div class="percent60">
         <div class="row">
-            <span class="body-2">{{ data.requested_by }}</span>
+            <span class="body-2">{{ data.created_by.full_name }}</span>
         </div>
         <div class="row">
             <span class="body-2">{{ data.attachment }}</span>
@@ -22,7 +22,7 @@
         </div>
 
         <div class="row">
-            <span class="body-2">{{ data.requested_at }}</span>
+            <span class="body-2">{{ data.created_at.date }}</span>
         </div>
 
         <div class="row">

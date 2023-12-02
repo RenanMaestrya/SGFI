@@ -1,30 +1,30 @@
 {% load static %}
 
 <header>
-    <div class="global-container {{role}}">
+    <div class="global-container {{ user.is_authenticated }}">
         <a href="/">
             <img src="{% static 'assets/logo.svg' %}" alt="Logo do SGFI">
         </a>
 
-        {% if role == "admin" %}
+        {% if user.role == "Aluno" %}
         <nav>
             <a class="body-2 {% if request.path == '/historico/' %} active-page {% endif %}" href="/historico">Histórico</a>
             <a class="body-2 {% if request.path == '/dashboard/' %} active-page {% endif %}" href="/dashboard">Dashboard</a>
-            <button id="dropdown">
-                <p class="body-2">Olá, <span id="username">Fulano</span></p>
-                <img src="{% static 'assets/arrow_down.svg' %}" alt="Seta para baixo">
-            </button>
+            <p class="body-2">Olá, <span id="username">{{ user.first_name }}</span></p>
+            <a id="dropdown" href="{% url 'logout' %}">
+                <img src="{% static 'assets/sign_out.svg' %}" alt="Ícone de sair">
+            </a>
         </nav>
         {% endif %}
 
-        {% if role == "user" %}
+        {% if user.role == "Professor" %}
         <nav>
             <a class="body-2 {% if request.path == '/solicitar/' %} active-page {% endif %}" href="/solicitar">Pedir impressão</a>
             <a class="body-2 {% if request.path == '/dashboard/' %} active-page {% endif %}" href="/dashboard">Meus pedidos</a>
-            <button id="dropdown">
-                <p class="body-2">Olá, <span id="username">Fulano</span></p>
-                <img src="{% static 'assets/arrow_down.svg' %}" alt="Seta para baixo">
-            </button>
+            <p class="body-2">Olá, <span id="username">{{ user.first_name }}</span></p>
+            <a id="dropdown" href="{% url 'logout' %}">
+                <img src="{% static 'assets/sign_out.svg' %}" alt="Ícone de sair">
+            </a>
         </nav>
         {% endif %}
     </div>
