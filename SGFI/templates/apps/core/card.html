@@ -1,15 +1,15 @@
 {% load static %}
 
 <div class="container request-card {{ data.status }}">
-    <span class="label caption">solicitado em {{ data.requested_at }}</span>
+    <span class="label caption">solicitado em {{ data.created_at }}</span>
 
-    <h3 id="requester" class="subtitle-1">{{ data.requested_by }}</h3>
+    <h3 id="requester" class="subtitle-1">{{ data.created_by.full_name }}</h3>
     <div class="row" style="justify-content: space-between;">
         <div class="row">
             <img src="{% static 'assets/paperclip.svg' %}" alt="Ícone de anexo">
-            <span class="body-2 attachment">{{ data.attachment }}</span>
+            <span class="body-2 attachment">{{ data.attachment.name }}</span>
         </div>
-        <span class="caption">x{{ data.attachment_count }}</span>
+        <span class="caption">x{{ data.print_count }}</span>
     </div>
 
     <span class="label caption">retirada:</span>
