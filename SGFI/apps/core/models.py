@@ -13,9 +13,9 @@ class User(AbstractUser):
     
 class Print(models.Model):
     STATUS_CHOICES = [
-        ('pending', 'Pending'),
-        ('printed', 'Printed'),
-        ('withdrawn', 'Withdrawn'),
+        ('pending', 'Pendente'),
+        ('printed', 'Impresso'),
+        ('withdrawn', 'Retirado'),
     ]
      
     created_at = models.DateTimeField(auto_now_add=True)

@@ -36,7 +36,6 @@ class PrintCreateView(CreateView):
     
     def form_valid(self, form):
         form.instance.created_by = self.request.user
-        form.instance.status = 'pending'
         return super().form_valid(form)
     
     
