@@ -6,8 +6,21 @@ from django.urls import reverse_lazy
 from datetime import datetime
 from django.contrib.auth import logout
 from django.shortcuts import redirect
+from .models import Print
+from .forms import PrintForm
+from django.views.generic import TemplateView, CreateView, ListView
+from django.urls import reverse_lazy
+from datetime import datetime
+from django.contrib.auth import logout
+from django.shortcuts import redirect
 
 # Create your views here.
+class IndexView(TemplateView):
+    def get(self, request, *args, **kwargs):
+        if request.user.is_authenticated:
+            return redirect('dashboard')
+        else:
+            return render(request, 'apps/core/pages/index.html')
 class IndexView(TemplateView):
     def get(self, request, *args, **kwargs):
         if request.user.is_authenticated:
@@ -36,6 +49,7 @@ class PrintCreateView(CreateView):
     
     def form_valid(self, form):
         form.instance.created_by = self.request.user
+        form.instance.status = 'pending'
         return super().form_valid(form)
     
     
