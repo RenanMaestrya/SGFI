@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/button.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/footer.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/card.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/input.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/modal.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/pages/dashboard.css' %}">
+{% endblock css %}
+
+{% block title %}Dashboard - SGFI{% endblock %}
+
+{% block main %}
+
+{% include 'apps/core/header.html' with role=role %}
+
+{% include 'modal-alert.html' %}
+
+<div class="global-wrapper">
+
+    <div class="global-container">
+        <div class="title">
+            <h3 class="headline-4">
+                {% if user.role == "Aluno" %}
+                    Dashboard
+                {% else %}
+                    Minhas solicitações
+                {% endif %}
+            </h3>
+            <h5 class="subtitle-1">Aqui você pode verificar suas solicitações. A cada duas semanas, o histórico de impressões e retiradas será limpo.</h5>
+        </div>
+        <main class="global-container-no-padding">
+            {% if user.role == "Aluno" %}
+                <div class="button-div">
+                    <a class="base new-alert" href="{% url 'criar_aviso' %}">
+                        <span class="button-text">+ Cadastrar novo aviso </span>
+                    </a>
+                </div>
+            {% endif %}
+
+            <div class="general">
+                <div class="kanban">
+                    <div class="kanban-header tint-pink">
+                        <span class="subtitle-1 text-tint-pink">Pendentes</span>
+                        <span class="subtitle-1 text-tint-pink">{{ pending_count }}</span>
+                    </div>
+
+                    <div class="kanban-content">
+                        {% for item in pending %}
+                                {% include 'apps/core/card.html' with data=item %}
+                                {% include 'modal.html' with data=item %}
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="kanban">
+                    <div class="kanban-header tint-green">
+                        <span class="subtitle-1 text-tint-green">Impressos</span>
+                        <span class="subtitle-1 text-tint-green">{{ printed_count }}</span>
+                    </div>
+
+                    <div class="kanban-content">
+                        {% for item in printed %}
+                            {% include 'apps/core/card.html' with data=item %}
+                            {% include 'modal.html' with data=item %}
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+                <div class="kanban">
+                    <div class="kanban-header tint-blue">
+                        <span class="subtitle-1 text-tint-blue">Retirados</span>
+                        <span class="subtitle-1 text-tint-blue">{{ withdrawn_count }}</span>
+                    </div>
+
+                    <div class="kanban-content">
+                        {% for item in withdrawn %}
+                                {% include 'apps/core/card.html' with data=item %}
+                                {% include 'modal.html' with data=item %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+            
+        </main>
+    </div>
+
+{% include 'apps/core/footer.html' %}
+</div>
+
+<script src="{% static 'scripts/dashboard.js' %}"></script>
+{% endblock %}
+

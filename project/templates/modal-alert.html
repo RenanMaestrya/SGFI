@@ -1,0 +1,62 @@
+{% load static %}
+
+<div class="modal-alert">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h4 class="headline-4">Envie uma mensagem para os usuários</h4>
+        </div>
+
+        <form action="" class="modal-form" method="post">
+            {% csrf_token %}
+            {% for message in messages %}
+                <p class="form-error">
+                    {{ message }}
+                </p>
+            {% endfor %}
+            <div class="input__wrapper body-2">
+                <label for="title" class="required">Título da mensagem</label>
+                {% comment %} <input class="base__input modal__input" type="text" name="" id="quantity" placeholder="Dê um título para a mensagem que será enviada como aviso"> {% endcomment %}
+                {{ form.title }}
+                <!-- Display errors for title field -->
+                {{ form.title.errors }}
+            </div>
+    
+            <div class="input__wrapper body-2">
+                <label for="message" class="required">Corpo da mensagem</label>
+                {% comment %} <textarea class="base__input textarea modal__input" name="observations" id="observations" placeholder="Informe o que deseja passar no aviso para os usuários"></textarea> {% endcomment %}
+                {{ form.message }}
+                <!-- Display errors for message field -->
+                {{ form.message.errors }}
+            </div>
+
+            <div class="input__wrapper body-2">
+                <label for="send_to_all">Enviar mensagem para todos?</label>
+                <div class="checkbox__wrapper">
+                    {{ form.send_to_all }}
+                    <span class="body-2">Sim</span>
+                </div>
+                <!-- Display errors for send_to_all field -->
+                {{ form.send_to_all.errors }}
+            </div>
+
+            {% if form.send_to_all.value == False %}
+                <div class="input__wrapper body-2">
+                    <label for="message" class="required">Destinatário</label>
+                    {% comment %} <textarea class="base__input textarea modal__input" name="observations" id="observations" placeholder="Informe o que deseja passar no aviso para os usuários"></textarea> {% endcomment %}
+                    {{ form.message }}
+                    <!-- Display errors for message field -->
+                    {{ form.message.errors }}
+                </div>
+            {% endif %}
+
+            <div class="modal-footer">
+                <button class="base outline" id="modal-btn-close">
+                    <span class="button-text">fechar</span>
+                </button>
+                <button class="base default" id="modal-btn-printed">
+                    <span class="button-text">enviar</span>
+                </button>
+            </div>
+        </form>
+    </div>
+</div>

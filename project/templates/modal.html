@@ -1,0 +1,73 @@
+{% load static %}
+
+<div class="modal" id="modal-{{ data.id }}">
+  <div class="modal-content">
+    <div class="tag tag-{{ data.status }}">
+      <span class="caption">{{ data.status }}</span>
+    </div>
+
+    <div class="modal-header">
+      <span class="label caption">solicitado em {{ data.created_at }}</span>
+      <h3 class="headline-3">{{ data.created_by.full_name }}</h3>
+    </div>
+
+    <div class="modal-observations">
+      <h5 class="headline-5">Observações:</h5>
+      <span class="body-2">
+        {% if data.observation %} {{ data.observation }} {% else %} Nenhuma
+        observação {% endif %}
+      </span>
+    </div>
+
+    <div class="modal-body">
+      <h5 class="headline-5">Anexo:</h5>
+      <div class="row" style="justify-content: space-between">
+        <a class="row file-link" href="{{ data.attachment.url }}">
+          <img src="{% static 'assets/paperclip.svg' %}" alt="Ícone de anexo" />
+          <span class="body-2 attachment">{{ data.attachment.name }}</span>
+        </a>
+        <span class="body-2">x{{ data.print_count }}</span>
+      </div>
+    </div>
+
+    <div class="modal-withdraw">
+      <h5 class="headline-5">Retirada:</h5>
+      <div class="row">
+        <img
+          src="{% static 'assets/calendar.svg' %}"
+          alt="Ícone de calendário"
+        />
+        <p class="body-2">{{ data.withdraw_date }}</p>
+      </div>
+    </div>
+
+    <div class="warning">
+      <p class="body-2 warning">
+        Ao marcar como impresso, será enviado um e-mail automático para o
+        solicitante informando que o documento está pronto para retirada.
+      </p>
+    </div>
+
+    <div class="modal-footer">
+      <button class="base outline modal-btn-close">
+        <span class="button-text">fechar</span>
+      </button>
+
+      {% if data.status == 'pending' %}
+      <a
+        class="base default link-as-button"
+        href="{% url 'atualizar_estado' pk=data.id status='printed' %}"
+      >
+        <span class="button-text">marcar como impresso</span>
+      </a>
+      {% elif data.status == 'printed' %}
+      <a
+        class="base default link-as-button"
+        href="{% url 'atualizar_estado' pk=data.id status='withdrawn' %}"
+      >
+        <span class="button-text">marcar como retirado</span>
+      </a>
+      {% endif %}
+    </div>
+  </div>
+</div>

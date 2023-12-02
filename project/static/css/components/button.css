@@ -1,0 +1,119 @@
+.base {
+  height: 48px;
+  width: 192px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out;
+}
+
+.default {
+  background-color: var(--brand-500);
+  color: var(--neutral-white);
+}
+
+.default:hover {
+  background-color: var(--brand-400);
+}
+
+.default:active,
+.default:focus {
+  background-color: var(--brand-700);
+}
+
+.default:disabled {
+  cursor: not-allowed;
+  background-color: var(--neutral-300);
+  color: var(--neutral-500);
+}
+
+.outline {
+  background-color: transparent;
+  border: 1px solid var(--brand-500);
+  color: var(--brand-500);
+}
+
+.outline:hover {
+  border-color: var(--brand-400);
+  color: var(--brand-400);
+}
+
+.outline:active,
+.outline:focus {
+  border-color: var(--brand-700);
+  color: var(--brand-700);
+}
+
+.outline:disabled {
+  cursor: not-allowed;
+  border-color: var(--neutral-300);
+  color: var(--neutral-500);
+}
+
+.ghost {
+  background-color: transparent;
+  color: var(--brand-500);
+}
+
+.ghost:hover {
+  color: var(--brand-400);
+}
+
+.ghost:active,
+.ghost:focus {
+  color: var(--brand-700);
+}
+
+.ghost:disabled {
+  cursor: not-allowed;
+  color: var(--neutral-500);
+}
+
+.neutral {
+  background-color: var(--neutral-200);
+  color: var(--neutral-700);
+}
+
+.neutral:hover {
+  background-color: var(--neutral-300);
+  color: var(--neutral-800);
+}
+
+.neutral:active,
+.neutral:focus {
+  background-color: var(--neutral-400);
+  color: var(--neutral-900);
+}
+
+.neutral:disabled {
+  cursor: not-allowed;
+  background-color: var(--neutral-300);
+  color: var(--neutral-500);
+}
+
+.new-alert {
+  width: 260px;
+  border-radius: 100px;
+  background-color: var(--light-green-100);
+  color: var(--brand-500);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+}
+
+.new-alert:hover {
+  background-color: var(--light-green-300);
+}
+
+.new-alert:active,
+.new-alert:focus {
+  background-color: var(--light-green-600);
+  color: var(--neutral-black);
+}
+
+.new-alert:disabled {
+  cursor: not-allowed;
+  background-color: var(--neutral-300);
+  color: var(--neutral-500);
+}
