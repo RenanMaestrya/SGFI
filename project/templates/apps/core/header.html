@@ -1,0 +1,60 @@
+{% load static %}
+
+<header>
+    <div class="global-container {{ user.is_authenticated }}">
+        <a href="/">
+            <img src="{% static 'assets/logo.svg' %}" alt="Logo do SGFI">
+        </a>
+
+        <button id="menu-icon" onclick="toggleMobileMenu()">
+            <img src="{% static 'assets/menu.svg' %}" alt="Ícone de menu">
+        </button>
+
+        {% if user.role == "Aluno" %}
+        <nav class="hide-mobile">
+            <a class="body-2 {% if request.path == '/aviso/' %} active-page {% endif %}" href="/aviso">Criar aviso</a>
+            <a class="body-2 {% if request.path == '/historico/' %} active-page {% endif %}" href="/historico">Histórico</a>
+            <a class="body-2 {% if request.path == '/dashboard/' %} active-page {% endif %}" href="/dashboard">Dashboard</a>
+            <p class="body-2">Olá, <span id="username">{{ user.first_name }}</span></p>
+            <a id="dropdown" href="{% url 'logout' %}">
+                <img src="{% static 'assets/sign_out.svg' %}" alt="Ícone de sair">
+            </a>
+        </nav>
+        <nav class="show-mobile">
+            <p class="body-2">Olá, <span id="username">{{ user.first_name }}</span></p>
+            <a class="body-2 {% if request.path == '/aviso/' %} active-page {% endif %}" href="/aviso">Criar aviso</a>
+            <a class="body-2 {% if request.path == '/historico/' %} active-page {% endif %}" href="/historico">Histórico</a>
+            <a class="body-2 {% if request.path == '/dashboard/' %} active-page {% endif %}" href="/dashboard">Dashboard</a>
+            <a id="dropdown" href="{% url 'logout' %}">
+                <img src="{% static 'assets/sign_out.svg' %}" alt="Ícone de sair">
+            </a>
+        </nav>
+        {% endif %}
+
+        {% if user.role == "Professor" %}
+        <nav class="hide-mobile">
+            <a class="body-2 {% if request.path == '/solicitar/' %} active-page {% endif %}" href="/solicitar">Pedir impressão</a>
+            <p class="body-2">Olá, <span id="username">{{ user.first_name }}</span></p>
+            <a class="body-2 {% if request.path == '/dashboard/' %} active-page {% endif %}" href="/dashboard">Meus pedidos</a>
+            <a id="dropdown" href="{% url 'logout' %}">
+                <img src="{% static 'assets/sign_out.svg' %}" alt="Ícone de sair">
+            </a>
+        </nav>
+        <nav class="show-mobile">
+            <p class="body-2">Olá, <span id="username">{{ user.first_name }}</span></p>
+            <a class="body-2 {% if request.path == '/solicitar/' %} active-page {% endif %}" href="/solicitar">Pedir impressão</a>
+            <a class="body-2 {% if request.path == '/dashboard/' %} active-page {% endif %}" href="/dashboard">Meus pedidos</a>
+            <a id="dropdown" href="{% url 'logout' %}">
+                <img src="{% static 'assets/sign_out.svg' %}" alt="Ícone de sair">
+            </a>
+        </nav>
+        {% endif %}
+    </div>
+</header>
+
+<script>
+    let nav = document.querySelector('nav.show-mobile');
+    function toggleMobileMenu() {
+        nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    }
+</script>

@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/button.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/footer.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/header.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/components/input.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/pages/form.css' %}">
+{% endblock css %}
+
+{% block title %}Formulário de impressão - SGFI{% endblock %}
+
+{% block main %}
+{% include 'apps/core/header.html' %}
+<div class="global-wrapper">
+
+    <div class="global-container">
+        <div class="title">
+            <h3 class="headline-3">Solicite uma impressão</h3>
+            <h5 class="headline-5">Preencha as informações abaixo corretamente para solicitar uma impressão.</h5>
+        </div>
+        <main class="wrapper">
+            <form method="post" enctype="multipart/form-data" class="register__form">
+                {% csrf_token %}
+                {% for message in messages %}
+                    <p class="form-error">
+                        {{ message }}
+                    </p>
+                {% endfor %}
+                
+                <div class="input__wrapper body-2">
+                    <label for="attachment" class="required">Documento</label>
+                    {{ form.attachment }}
+                    <!-- Display errors for attachment field -->
+                    {{ form.attachment.errors }}
+                </div>
+        
+                <div class="input__wrapper body-2">
+                    <label for="quantity" class="required">Quantidade de cópias</label>
+                    {{ form.print_count }}
+                    <!-- Display errors for print_count field -->
+                    {{ form.print_count.errors }}
+                </div>
+        
+                <div class="input__wrapper body-2">
+                    <label for="withdraw_date" class="required">Data de retirada</label>
+                    {{ form.withdraw_date }}
+                    <!-- Display errors for withdraw_date field -->
+                    {{ form.withdraw_date.errors }}
+                </div>
+
+                <div class="input__wrapper body-2">
+                    <label for="withdraw_time" class="required">Hora de retirada</label>
+                    {{ form.withdraw_time }}
+                    <!-- Display errors for withdraw_time field -->
+                    {{ form.withdraw_time.errors }}
+                </div>
+
+                <div class="input__wrapper body-2">
+                    <label for="is_sensible">O anexo é sensível?</label>
+                    <div class="checkbox__wrapper">
+                        {{ form.is_sensible }}
+                        <span class="body-2">Sim</span>
+                    </div>
+                    <!-- Display errors for is_sensible field -->
+                    {{ form.is_sensible.errors }}
+                </div>
+        
+                <div class="input__wrapper body-2">
+                    <label for="observation">Observações</label>
+                    {{ form.observation }}
+                    <!-- Display errors for observation field -->
+                    {{ form.observation.errors }}
+                </div>
+    
+                <button class="base default" type="submit">
+                    <span class="button-text">Enviar</span>
+                </button>
+            </form>
+        </main>
+    </div>
+
+{% include 'apps/core/footer.html' %}
+</div>
+{% endblock %}

@@ -1,0 +1,43 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+}
+
+#login-button {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+span[class^="subtitle"] {
+  color: var(--neutral-800);
+  text-align: center;
+}
+
+.splitter {
+  width: 148px;
+  height: 2px;
+  background-color: var(--neutral-300);
+}
+
+.wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+h1 {
+  text-align: center;
+  max-width: 780px;
+}
+
+a {
+  text-decoration: none;
+  color: var(--neutral-white);
+}

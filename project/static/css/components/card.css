@@ -1,0 +1,55 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px 8px;
+  background-color: var(--neutral-50);
+  max-height: 180px;
+  cursor: pointer;
+}
+
+.pending {
+  border-block: 2px solid #ff7a00;
+}
+
+.file-link {
+  font-weight: bold;
+  display: block;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #000;
+}
+
+.printed {
+  border-block: 2px solid var(--brand-500);
+}
+
+.sensible {
+  background-color: #ffdddd;
+}
+
+.withdrawn {
+  border-block: 2px solid #00c2ff;
+}
+
+.label {
+  color: var(--neutral-500);
+  text-transform: uppercase;
+  margin: 0;
+}
+
+.attachment {
+  max-width: 100%;
+  width: 200px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}

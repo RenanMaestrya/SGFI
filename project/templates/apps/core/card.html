@@ -1,0 +1,27 @@
+{% load static %}
+
+<div
+  class="container request-card {{ data.status }} {% if data.is_sensible %}sensible{% endif %}"
+  id="{{ data.id }}"
+>
+  <span class="label caption">solicitado em {{ data.created_at }}</span>
+
+  <h3 id="requester" class="subtitle-1">{{ data.created_by.full_name }}</h3>
+  <div class="row" style="justify-content: space-between">
+    <a class="row file-link" href="{{ data.attachment.url }}" target="_blank">
+      <img src="{% static 'assets/paperclip.svg' %}" alt="Ícone de anexo" />
+      <span class="body-2 attachment">{{ data.attachment.name }}</span>
+    </a>
+    <span class="caption">x{{ data.print_count }}</span>
+  </div>
+
+  <span class="label caption">retirada:</span>
+  <div class="row">
+    <img src="{% static 'assets/calendar.svg' %}" alt="Ícone de calendário" />
+    <p class="caption">{{ data.withdraw_date }}</p>
+  </div>
+  <div class="row">
+    <img src="{% static 'assets/clock.svg' %}" alt="Ícone de relógio" />
+    <p class="caption">{{ data.withdraw_time }}</p>
+  </div>
+</div>

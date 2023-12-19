@@ -1,0 +1,28 @@
+span[class="body-2"] {
+  color: var(--neutral-700);
+}
+
+.row {
+  padding-left: 16px;
+}
+
+.link-item {
+  display: block;
+  margin: 0;
+  color: #000;
+  text-decoration: underline;
+}
+
+.card-row {
+  box-sizing: border-box;
+  display: flex;
+  max-width: 100%;
+  width: 100%;
+  padding: 16px 0;
+  flex-direction: row;
+}
+
+.card-row:hover {
+  background-color: var(--neutral-100);
+  cursor: pointer;
+}
