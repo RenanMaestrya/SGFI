@@ -6,7 +6,7 @@
             <span class="body-2">{{ data.created_by.full_name }}</span>
         </div>
         <div class="row">
-            <span class="body-2">{{ data.attachment }}</span>
+            <a class="body-2 link-item" href="{{ data.attachment.url }}" target="_blank">{{ data.attachment }}</a>
         </div>
     </div>
 

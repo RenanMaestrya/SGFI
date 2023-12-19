@@ -34,7 +34,7 @@ class Command(BaseCommand):
             withdraw_date = faker.date(),
             withdraw_time = faker.time(),
             status = choice(['printed', 'withdrawn', 'pending']),
-            withdrawn_at = choice([faker.date(), None])
+            withdrawn_at = faker.date(),
         ) for _ in range(50)]
         
         Print.objects.bulk_create(prints)

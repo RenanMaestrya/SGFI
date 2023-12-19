@@ -148,9 +148,6 @@ class HistoryListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['withdrawn_count'] = Print.objects.filter(status='withdrawn').count()
-        context['pending_count'] = Print.objects.filter(status='pending').count()
-        context['printed_count'] = Print.objects.filter(status='printed').count()
         context['user'] = self.request.user
         return context
 

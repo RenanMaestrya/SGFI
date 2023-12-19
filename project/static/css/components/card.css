@@ -5,6 +5,7 @@
   padding: 16px 8px;
   background-color: var(--neutral-50);
   max-height: 180px;
+  cursor: pointer;
 }
 
 .pending {

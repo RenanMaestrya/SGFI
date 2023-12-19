@@ -3,95 +3,69 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/components/button.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/components/footer.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/components/header.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/components/input.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/pages/alert-form.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/components/button.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/components/footer.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/components/header.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/components/input.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/pages/alert-form.css' %}">
 {% endblock css %}
 
 {% block title %}Formulário de aviso - SGFI{% endblock %}
 
 {% block main %}
-{% include 'apps/core/header.html' %}
-<div class="global-wrapper">
+    {% include 'apps/core/header.html' %}
+    <div class="global-wrapper">
+        <div class="global-container">
+            <div class="title">
+                <h3 class="headline-3">Envie um aviso</h3>
+                <h5 class="headline-5">Preencha as informações abaixo corretamente para enviar um aviso particular ou para todos.</h5>
+            </div>
+            <main class="wrapper">
+                <form action="" class="register__form" method="post">
+                    {% csrf_token %}
+                    {% for message in messages %}
+                        <p class="form-error">{{ message }}</p>
+                    {% endfor %}
 
-    <div class="global-container">
-        <div class="title">
-            <h3 class="headline-3">Envie um aviso</h3>
-            <h5 class="headline-5">Preencha as informações abaixo corretamente para enviar um aviso particular ou para todos.</h5>
-        </div>
-        <main class="wrapper">
-            <form action="" class="register__form" method="post">
-                {% csrf_token %}
-                {% for message in messages %}
-                    <p class="form-error">
-                        {{ message }}
-                    </p>
-                {% endfor %}
-                <div class="input__wrapper body-2">
-                    <label for="title" class="required">Título da mensagem</label>
-                    {% comment %} <input class="base__input modal__input" type="text" name="" id="quantity" placeholder="Dê um título para a mensagem que será enviada como aviso"> {% endcomment %}
-                    {{ form.title }}
-                    <!-- Display errors for title field -->
-                    {{ form.title.errors }}
-                </div>
-        
-                <div class="input__wrapper body-2">
-                    <label for="message" class="required">Corpo da mensagem</label>
-                    {% comment %} <textarea class="base__input textarea modal__input" name="observations" id="observations" placeholder="Informe o que deseja passar no aviso para os usuários"></textarea> {% endcomment %}
-                    {{ form.message }}
-                    <!-- Display errors for message field -->
-                    {{ form.message.errors }}
-                </div>
-    
-                <div class="input__wrapper body-2">
-                    <label for="send_to_all">Enviar mensagem para todos?</label>
-                    <div class="checkbox__wrapper">
-                        {{ form.send_to_all }}
-                        <span class="body-2">Sim</span>
+                    <div class="input__wrapper body-2">
+                        <label for="title" class="required">Título da mensagem</label>
+                        {{ form.title }}
+                        <!-- Display errors for title field -->
+                        {{ form.title.errors }}
                     </div>
-                    <!-- Display errors for send_to_all field -->
-                    {{ form.send_to_all.errors }}
-                </div>
-    
-             
-                <div class="input__wrapper body-2" id="receivers">
-                    <label for="receiver" class="required">Destinatário</label>
-                    {% comment %} <textarea class="base__input textarea modal__input" name="observations" id="observations" placeholder="Informe o que deseja passar no aviso para os usuários"></textarea> {% endcomment %}
-                    {{ form.receiver }}
-                    <!-- Display errors for receiver field -->
-                    {{ form.receiver.errors }}
-                </div>
-    
-                <div class="modal-footer">
-                    <button class="base default" type="submit">
-                        <span class="button-text">Enviar</span>
-                    </button>
-                </div>
-            </form>
-        </main>
+
+                    <div class="input__wrapper body-2">
+                        <label for="message" class="required">Corpo da mensagem</label>
+                        {{ form.message }}
+                        <!-- Display errors for message field -->
+                        {{ form.message.errors }}
+                    </div>
+
+                    <div class="input__wrapper body-2">
+                        <label for="send_to_all">Enviar mensagem para todos?</label>
+                        <div class="checkbox__wrapper">
+                            {{ form.send_to_all }}
+                            <span class="body-2">Sim</span>
+                        </div>
+                        <!-- Display errors for send_to_all field -->
+                        {{ form.send_to_all.errors }}
+                    </div>
+
+                    <div class="input__wrapper body-2" id="receivers">
+                        <label for="receiver" class="required">Destinatário</label>
+                        {{ form.receiver }}
+                        <!-- Display errors for receiver field -->
+                        {{ form.receiver.errors }}
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="base default" type="submit">
+                            <span class="button-text">Enviar</span>
+                        </button>
+                    </div>
+                </form>
+            </main>
+        </div>
     </div>
-
-{% include 'apps/core/footer.html' %}
-</div>
-{% comment %} <script>
-    const sendToAll = document.querySelector('#id_send_to_all');
-    const receiver = document.querySelector('#receivers');
-    const selectInput = receiver.querySelector('select');
-    const form = document.querySelector('.register__form');
-
-    sendToAll.addEventListener('change', () => {
-        if (sendToAll.checked) {
-            selectInput.disabled = true;
-            selectInput.value = 'Todos';
-            console.log(selectInput);
-        } else {
-            selectInput.disabled = false;
-        }
-    });
-</script> {% endcomment %}
-
+    {% include 'apps/core/footer.html' %}
 {% endblock %}
-
-
