@@ -12,7 +12,7 @@ Faker==21.0.0
 idna==3.6
 jmespath==1.0.1
 oauthlib==3.2.2
-psycopg2-binary==2.9.9
+psycopg2==2.9.9
 pycparser==2.21
 PyJWT==2.8.0
 python-dateutil==2.8.2
@@ -27,3 +27,4 @@ social-auth-app-django==5.4.0
 social-auth-core==4.5.1
 sqlparse==0.4.4
 urllib3==2.0.7
+whitenoise==6.6.0
