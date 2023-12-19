@@ -8,7 +8,7 @@
 
   <h3 id="requester" class="subtitle-1">{{ data.created_by.full_name }}</h3>
   <div class="row" style="justify-content: space-between">
-    <a class="row file-link" href="{{ data.attachment.url }}">
+    <a class="row file-link" href="{{ data.attachment.url }}" target="_blank">
       <img src="{% static 'assets/paperclip.svg' %}" alt="Ícone de anexo" />
       <span class="body-2 attachment">{{ data.attachment.name }}</span>
     </a>

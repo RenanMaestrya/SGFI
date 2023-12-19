@@ -42,6 +42,10 @@ button[type="submit"] {
   color: var(--neutral-500);
 }
 
+.errorlist li {
+  color: #f44336;
+}
+
 @media screen and (max-width: 375px) {
   .register__form {
     max-width: 100%;

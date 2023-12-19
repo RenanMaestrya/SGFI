@@ -3,7 +3,7 @@
 <div class="modal" id="modal-{{ data.id }}">
   <div class="modal-content">
     <div class="tag tag-{{ data.status }}">
-      <span class="caption">{{ data.status }}</span>
+      <span class="caption">{{ data.get_status_display }}</span>
     </div>
 
     <div class="modal-header">
@@ -22,7 +22,7 @@
     <div class="modal-body">
       <h5 class="headline-5">Anexo:</h5>
       <div class="row" style="justify-content: space-between">
-        <a class="row file-link" href="{{ data.attachment.url }}">
+        <a class="row file-link" href="{{ data.attachment.url }}" target="_blank">
           <img src="{% static 'assets/paperclip.svg' %}" alt="Ícone de anexo" />
           <span class="body-2 attachment">{{ data.attachment.name }}</span>
         </a>
