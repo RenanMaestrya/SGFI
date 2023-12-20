@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'apps.core',
+    'rolepermissions',
     'social_django',
     'storages',
 ]
@@ -145,14 +146,14 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'core.User'
 
 try:
     from .local_settings import *
 except ImportError:
     pass
 
-
+AUTH_USER_MODEL = 'core.User'
+ROLEPERMISSIONS_MODULE = 'apps.core.roles'
 LOGIN_REDIRECT_URL = 'dashboard'
 LOGIN_URL = 'index'
 
