@@ -25,6 +25,9 @@ media
 # Generated files
 .idea/**/contentModel.xml
 
+# Static
+staticfiles/
+
 # Sensitive or high-churn files
 .idea/**/dataSources/
 .idea/**/dataSources.ids

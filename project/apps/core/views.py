@@ -3,7 +3,7 @@ from django.utils.html import strip_tags
 from typing import Any
 from django.db.models.query import QuerySet
 from django.forms.models import BaseModelForm
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Print, User
 from .forms import PrintForm, WarningForm
@@ -20,6 +20,8 @@ from django.core.mail import send_mail
 import boto3
 from main.settings import (AWS_ACCESS_KEY_ID, AWS_S3_REGION_NAME,
                           AWS_SECRET_ACCESS_KEY, SQS_QUEUE_URL, EMAIL_HOST_USER)
+from rolepermissions.decorators import has_permission_decorator
+from django.contrib.auth.mixins import AccessMixin
 
 sqs = boto3.client(
     "sqs",
@@ -60,13 +62,23 @@ class IndexView(TemplateView):
             return redirect('dashboard')
         else:
             return render(request, 'apps/core/pages/index.html')
-        
-@method_decorator(login_required, name='dispatch')
-class WarningCreateView(CreateView):
+
+@method_decorator(login_required, name='dispatch') 
+class WarningCreateView(CreateView, AccessMixin):
     template_name = 'apps/core/pages/alert-form.html'
     model = Warning
     form_class = WarningForm
     success_url = reverse_lazy('dashboard')
+        
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        
+        if not self.request.user.groups.filter(name="bolsista").exists() and \
+        not self.request.user.groups.filter(name="gerente").exists():
+            return HttpResponseRedirect(reverse_lazy('dashboard'))
+        
+        return super().dispatch(request, *args, **kwargs)
     
     def form_valid(self, form):
         form.instance.created_by = self.request.user
@@ -105,26 +117,49 @@ class PrintListView(ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['withdrawn'] = Print.objects.filter(status='withdrawn').order_by('withdraw_date')
-        context['pending'] = Print.objects.filter(status='pending').order_by('withdraw_date')
-        context['printed'] = Print.objects.filter(status='printed').order_by('withdraw_date')
-        context['withdrawn_count'] = Print.objects.filter(status='withdrawn').count()
-        context['pending_count'] = Print.objects.filter(status='pending').count()
-        context['printed_count'] = Print.objects.filter(status='printed').count()
+        context['withdrawn'] = self.get_filtered_prints('withdrawn').order_by('withdraw_date')
+        context['pending'] = self.get_filtered_prints('pending').order_by('withdraw_date')
+        context['printed'] = self.get_filtered_prints('printed').order_by('withdraw_date')
+        context['withdrawn_count'] = self.get_filtered_prints('withdrawn').count()
+        context['pending_count'] = self.get_filtered_prints('pending').count()
+        context['printed_count'] = self.get_filtered_prints('printed').count()
         context['user'] = self.request.user
         return context
+
+    def get_filtered_prints(self, status):
+        if self.request.user.groups.filter(name="professor").exists():
+            return self.model.objects.filter(
+                created_by=self.request.user,
+                status=status
+            )
+        else:
+            return self.model.objects.filter(status=status)
+
+    def get_queryset(self):
+        return super().get_queryset()
     
 @method_decorator(login_required, name='dispatch')
-class PrintCreateView(CreateView):
+class PrintCreateView(CreateView, AccessMixin):
     template_name = 'apps/core/pages/form.html'
     model = Print   
     form_class = PrintForm
     success_url = reverse_lazy('dashboard')
     
+    def dispatch(self, request, *args, **kwargs):
+        print(self.request.user.groups.all())
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        
+        if not self.request.user.groups.filter(name="professor").exists() and \
+        not self.request.user.groups.filter(name="bolsista").exists() and \
+        not self.request.user.groups.filter(name="gerente").exists():
+            return HttpResponseRedirect(reverse_lazy('dashboard'))
+        
+        return super().dispatch(request, *args, **kwargs)
+    
     def form_valid(self, form):
         form.instance.created_by = self.request.user
         try:
-            print(form.cleaned_data['withdraw_date'])
             if form.cleaned_data['withdraw_date'] < datetime.now().date():
                 raise ValidationError('Data de retirada não pode ser menor que a data atual')
             
@@ -143,6 +178,16 @@ class HistoryListView(ListView):
     model = Print
     context_object_name = 'prints'
     
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        
+        if not self.request.user.groups.filter(name="bolsista").exists() and \
+        not self.request.user.groups.filter(name="gerente").exists():
+            return HttpResponseRedirect(reverse_lazy('dashboard'))
+        
+        return super().dispatch(request, *args, **kwargs)
+    
     def get_queryset(self) -> QuerySet[Any]:
         return super().get_queryset().order_by('-created_at')
     
@@ -157,6 +202,7 @@ def LogoutView(request):
     return redirect('index')
 
 @login_required
+@has_permission_decorator(['gerente', 'bolsista'])
 def PrintUpdateStatusView(request, pk, status):
     print = Print.objects.get(pk=pk)
     print.status = status
