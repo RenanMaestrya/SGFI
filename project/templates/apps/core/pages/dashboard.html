@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% load static %}
+{% load custom_filters %}
 
 {% block css %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/button.css' %}">
@@ -23,7 +24,7 @@
     <div class="global-container">
         <div class="title">
             <h3 class="headline-4">
-                {% if user.role == "Aluno" %}
+                {% if user|has_any_group:"gerente,bolsista" %}
                     Dashboard
                 {% else %}
                     Minhas solicitações
@@ -32,7 +33,7 @@
             <h5 class="subtitle-1">Aqui você pode verificar suas solicitações. A cada duas semanas, o histórico de impressões e retiradas será limpo.</h5>
         </div>
         <main class="global-container-no-padding">
-            {% if user.role == "Aluno" %}
+            {% if user|has_any_group:"gerente,bolsista" %}
                 <div class="button-div">
                     <a class="base new-alert" href="{% url 'criar_aviso' %}">
                         <span class="button-text">+ Cadastrar novo aviso </span>

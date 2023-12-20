@@ -76,7 +76,7 @@ class WarningCreateView(CreateView, AccessMixin):
         
         if not self.request.user.groups.filter(name="bolsista").exists() and \
         not self.request.user.groups.filter(name="gerente").exists():
-            return HttpResponseRedirect(reverse_lazy('dashboard'))
+            return HttpResponse('Você não tem permissão para acessar esta página.')
         
         return super().dispatch(request, *args, **kwargs)
     
@@ -110,10 +110,21 @@ class WarningCreateView(CreateView, AccessMixin):
     
 
 @method_decorator(login_required, name='dispatch')
-class PrintListView(ListView):
+class PrintListView(AccessMixin, ListView):
     template_name = 'apps/core/pages/dashboard.html'
     model = Print
     context_object_name = 'prints'
+    
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return self.handle_no_permission()
+        
+        if not self.request.user.groups.filter(name="professor").exists() and \
+        not self.request.user.groups.filter(name="gerente").exists() and \
+        not self.request.user.groups.filter(name="bolsista").exists():
+            return HttpResponse('Você não tem permissão para acessar esta página.')
+        
+        return super().dispatch(request, *args, **kwargs)
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -132,6 +143,12 @@ class PrintListView(ListView):
                 created_by=self.request.user,
                 status=status
             )
+            
+        elif self.request.user.groups.filter(name="bolsista").exists():
+            return self.model.objects.filter(
+                is_sensible=False,
+                status=status
+            )
         else:
             return self.model.objects.filter(status=status)
 
@@ -146,14 +163,13 @@ class PrintCreateView(CreateView, AccessMixin):
     success_url = reverse_lazy('dashboard')
     
     def dispatch(self, request, *args, **kwargs):
-        print(self.request.user.groups.all())
         if not request.user.is_authenticated:
             return self.handle_no_permission()
         
         if not self.request.user.groups.filter(name="professor").exists() and \
         not self.request.user.groups.filter(name="bolsista").exists() and \
         not self.request.user.groups.filter(name="gerente").exists():
-            return HttpResponseRedirect(reverse_lazy('dashboard'))
+            return HttpResponse('Você não tem permissão para acessar esta página.')
         
         return super().dispatch(request, *args, **kwargs)
     
@@ -184,7 +200,7 @@ class HistoryListView(ListView):
         
         if not self.request.user.groups.filter(name="bolsista").exists() and \
         not self.request.user.groups.filter(name="gerente").exists():
-            return HttpResponseRedirect(reverse_lazy('dashboard'))
+            return HttpResponse('Você não tem permissão para acessar esta página.')
         
         return super().dispatch(request, *args, **kwargs)
     

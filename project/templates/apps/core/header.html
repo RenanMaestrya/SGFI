@@ -12,7 +12,7 @@
         </button>
 
         {% if user.is_authenticated %}
-            {% if user|has_any_group:"gerente, bolsista" %}
+            {% if user|has_any_group:"gerente,bolsista" %}
                 <nav class="hide-mobile">
                     <a class="body-2 {% if request.path == '/aviso/' %} active-page {% endif %}" href="/aviso">Criar aviso</a>
                     <a class="body-2 {% if request.path == '/historico/' %} active-page {% endif %}" href="/historico">Histórico</a>
