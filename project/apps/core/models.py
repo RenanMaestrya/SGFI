@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group
 from django.core.exceptions import ValidationError
 from main.settings import MAX_FILE_SIZE
 
@@ -21,6 +21,27 @@ class User(AbstractUser):
     full_name = models.CharField(max_length=255)
     preferred_email = models.EmailField(max_length=255)
     google_classroom_email = models.EmailField(max_length=255)
+    
+    def save(self, *args, **kwargs):
+        is_new = not self.pk
+        
+        super().save(*args, **kwargs)
+        
+        if is_new:
+            self.assign_group()
+        
+    def assign_group(self):
+        if self.role == 'Professor':
+            group_name = 'professor'
+            
+        elif self.role == 'Aluno':
+            group_name = 'aluno'
+            
+        try:
+            group = Group.objects.get(name=group_name)
+            self.groups.add(group)
+        except Group.DoesNotExist:
+            print(f'Group {group_name} does not exist')
     
     def __str__(self):
         return self.full_name

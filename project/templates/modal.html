@@ -1,4 +1,5 @@
 {% load static %}
+{% load custom_filters %}
 
 <div class="modal" id="modal-{{ data.id }}">
   <div class="modal-content">
@@ -41,32 +42,36 @@
       </div>
     </div>
 
-    <div class="warning">
-      <p class="body-2 warning">
-        Ao marcar como impresso, será enviado um e-mail automático para o
-        solicitante informando que o documento está pronto para retirada.
-      </p>
-    </div>
+    {% if user|has_any_group:"gerente,bolsista" %}
+      <div class="warning">
+        <p class="body-2 warning">
+          Ao marcar como impresso, será enviado um e-mail automático para o
+          solicitante informando que o documento está pronto para retirada.
+        </p>
+      </div>
+    {% endif %}
 
     <div class="modal-footer">
       <button class="base outline modal-btn-close">
         <span class="button-text">fechar</span>
       </button>
 
-      {% if data.status == 'pending' %}
-      <a
-        class="base default link-as-button"
-        href="{% url 'atualizar_estado' pk=data.id status='printed' %}"
-      >
-        <span class="button-text">marcar como impresso</span>
-      </a>
-      {% elif data.status == 'printed' %}
-      <a
-        class="base default link-as-button"
-        href="{% url 'atualizar_estado' pk=data.id status='withdrawn' %}"
-      >
-        <span class="button-text">marcar como retirado</span>
-      </a>
+      {% if user|has_any_group:"gerente,bolsista" %}
+        {% if data.status == 'pending' %}
+          <a
+            class="base default link-as-button"
+            href="{% url 'atualizar_estado' pk=data.id status='printed' %}"
+          >
+            <span class="button-text">marcar como impresso</span>
+          </a>
+          {% elif data.status == 'printed' %}
+          <a
+            class="base default link-as-button"
+            href="{% url 'atualizar_estado' pk=data.id status='withdrawn' %}"
+          >
+            <span class="button-text">marcar como retirado</span>
+          </a>
+        {% endif %}
       {% endif %}
     </div>
   </div>
