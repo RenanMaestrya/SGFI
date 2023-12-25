@@ -76,7 +76,7 @@ class WarningCreateView(CreateView, AccessMixin):
         
         if not self.request.user.groups.filter(name="bolsista").exists() and \
         not self.request.user.groups.filter(name="gerente").exists():
-            return HttpResponse('Você não tem permissão para acessar esta página.')
+            return HttpResponse('Você não tem permissão para acessar esta página.', status=403)
         
         return super().dispatch(request, *args, **kwargs)
     
@@ -122,7 +122,7 @@ class PrintListView(AccessMixin, ListView):
         if not self.request.user.groups.filter(name="professor").exists() and \
         not self.request.user.groups.filter(name="gerente").exists() and \
         not self.request.user.groups.filter(name="bolsista").exists():
-            return HttpResponse('Você não tem permissão para acessar esta página.')
+            return HttpResponse('Você não tem permissão para acessar esta página.', status=403)
         
         return super().dispatch(request, *args, **kwargs)
     
@@ -169,7 +169,7 @@ class PrintCreateView(CreateView, AccessMixin):
         if not self.request.user.groups.filter(name="professor").exists() and \
         not self.request.user.groups.filter(name="bolsista").exists() and \
         not self.request.user.groups.filter(name="gerente").exists():
-            return HttpResponse('Você não tem permissão para acessar esta página.')
+            return HttpResponse('Você não tem permissão para acessar esta página.', status=403)
         
         return super().dispatch(request, *args, **kwargs)
     
@@ -200,7 +200,7 @@ class HistoryListView(ListView):
         
         if not self.request.user.groups.filter(name="bolsista").exists() and \
         not self.request.user.groups.filter(name="gerente").exists():
-            return HttpResponse('Você não tem permissão para acessar esta página.')
+            return HttpResponse('Você não tem permissão para acessar esta página.', status=403)
         
         return super().dispatch(request, *args, **kwargs)
     
@@ -218,19 +218,23 @@ def LogoutView(request):
     return redirect('index')
 
 @login_required
-@has_permission_decorator(['gerente', 'bolsista'])
 def PrintUpdateStatusView(request, pk, status):
-    print = Print.objects.get(pk=pk)
-    print.status = status
-    if print.status == 'withdrawn':
-        print.withdrawn_at = datetime.now()
+    
+    if not request.user.groups.filter(name="bolsista").exists() and \
+    not request.user.groups.filter(name="gerente").exists():
+        return HttpResponse('Você não tem permissão para acessar esta página.', status=403)
+    
+    print_request = Print.objects.get(pk=pk)
+    print_request.status = status
+    if print_request.status == 'withdrawn':
+        print_request.withdrawn_at = datetime.now()
 
-    if print.status == 'printed':
-        attachment_name = print.attachment.name.split('/')[-1]
-        formatted_date = print.created_at.strftime("%Y-%m-%d às %H:%M:%S") 
+    if print_request.status == 'printed':
+        attachment_name = print_request.attachment.name.split('/')[-1]
+        formatted_date = print_request.created_at.strftime("%d/%m/%Y às %H:%M:%S") 
 
         subject = 'Impressão Disponível para Retirada'
-        recipient_name = print.created_by.full_name
+        recipient_name = print_request.created_by.full_name
         file_description = f"impressão de {attachment_name}"
         print_date = formatted_date
 
@@ -240,11 +244,11 @@ def PrintUpdateStatusView(request, pk, status):
             f"Detalhes da Impressão:\n"
             f" - Nome do arquivo: {attachment_name}\n"
             f" - Data de solicitação: {print_date}\n"
-            f" - Quantidade de cópias: {print.print_count}\n"
-            f" - Data agendada para retirada: {print.withdraw_date}\n"
-            f" - Hora agendada para retirada: {print.withdraw_time}\n"
-            f" - Observações: {strip_tags(print.observation) if print.observation else 'Nenhuma'}\n"
-            f" - Impressão sensível: {'Sim' if print.is_sensible else 'Não'}\n"
+            f" - Quantidade de cópias: {print_request.print_count}\n"
+            f" - Data agendada para retirada: {print_request.withdraw_date.strftime('%d/%m/%Y')}\n"
+            f" - Hora agendada para retirada: {print_request.withdraw_time}\n"
+            f" - Observações: {strip_tags(print_request.observation) if print_request.observation else 'Nenhuma'}\n"
+            f" - Impressão sensível: {'Sim' if print_request.is_sensible else 'Não'}\n"
             f" - Impresso por: {request.user.full_name}\n"
             f"\n"
             f"Por favor, dirija-se à sala de impressão para retirar sua impressão. Em caso de dúvidas, entre em contato conosco.\n\n"
@@ -252,7 +256,7 @@ def PrintUpdateStatusView(request, pk, status):
             f"Comunicação do Sistema de Gerenciamento da Fila de Impressão"
         )
         
-        send_print_email(print.created_by, subject, message)
+        send_print_email(print_request.created_by, subject, message)
         
-    print.save()
+    print_request.save()
     return redirect('dashboard')
