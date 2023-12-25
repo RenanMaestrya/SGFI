@@ -204,8 +204,16 @@ class HistoryListView(ListView):
         
         return super().dispatch(request, *args, **kwargs)
     
+    def get_filtered_prints(self):            
+        if self.request.user.groups.filter(name="bolsista").exists():
+            return self.model.objects.filter(
+                is_sensible=False
+            )
+        else:
+            return self.model.objects.all()
+    
     def get_queryset(self) -> QuerySet[Any]:
-        return super().get_queryset().order_by('-created_at')
+        return self.get_filtered_prints().order_by('-created_at')
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
