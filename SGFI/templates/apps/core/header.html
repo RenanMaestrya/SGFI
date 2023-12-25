@@ -1,0 +1,31 @@
+{% load static %}
+
+<header>
+    <div class="global-container {{role}}">
+        <a href="/">
+            <img src="{% static 'assets/logo.svg' %}" alt="Logo do SGFI">
+        </a>
+
+        {% if role == "admin" %}
+        <nav>
+            <a class="body-2 {% if request.path == '/historico/' %} active-page {% endif %}" href="/historico">Histórico</a>
+            <a class="body-2 {% if request.path == '/dashboard/' %} active-page {% endif %}" href="/dashboard">Dashboard</a>
+            <button id="dropdown">
+                <p class="body-2">Olá, <span id="username">Fulano</span></p>
+                <img src="{% static 'assets/arrow_down.svg' %}" alt="Seta para baixo">
+            </button>
+        </nav>
+        {% endif %}
+
+        {% if role == "user" %}
+        <nav>
+            <a class="body-2 {% if request.path == '/solicitar/' %} active-page {% endif %}" href="/solicitar">Pedir impressão</a>
+            <a class="body-2 {% if request.path == '/dashboard/' %} active-page {% endif %}" href="/dashboard">Meus pedidos</a>
+            <button id="dropdown">
+                <p class="body-2">Olá, <span id="username">Fulano</span></p>
+                <img src="{% static 'assets/arrow_down.svg' %}" alt="Seta para baixo">
+            </button>
+        </nav>
+        {% endif %}
+    </div>
+</header>
