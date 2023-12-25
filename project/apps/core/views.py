@@ -128,10 +128,16 @@ class PrintListView(AccessMixin, ListView):
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['withdrawn'] = self.get_filtered_prints('withdrawn').order_by('withdraw_date')
+    
+        if self.request.user.groups.filter(name="professor").exists():
+            context['withdrawn'] = self.get_filtered_prints('printed').order_by('withdraw_date')
+            context['withdrawn_count'] = self.get_filtered_prints('printed').count()
+        else:
+            context['withdrawn'] = self.get_filtered_prints('withdrawn').order_by('withdraw_date')[:10]
+            context['withdrawn_count'] = 10
+            
         context['pending'] = self.get_filtered_prints('pending').order_by('withdraw_date')
         context['printed'] = self.get_filtered_prints('printed').order_by('withdraw_date')
-        context['withdrawn_count'] = self.get_filtered_prints('withdrawn').count()
         context['pending_count'] = self.get_filtered_prints('pending').count()
         context['printed_count'] = self.get_filtered_prints('printed').count()
         context['user'] = self.request.user
