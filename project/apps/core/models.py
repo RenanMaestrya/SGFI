@@ -3,6 +3,9 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser, Group
 from django.core.exceptions import ValidationError
 from main.settings import MAX_FILE_SIZE
+from django.dispatch import receiver
+from django.db.models.signals import post_save
+
 
 
 def get_file_path(_instance, filename):
@@ -13,7 +16,8 @@ def file_size(value):
     if value.size > limit:
         raise ValidationError(f'O tamanho máximo do arquivo é de {limit}MB')
 
-# Create your models here.
+# Create your models here.from django.db.models.signals import post_save
+
 class User(AbstractUser):
     identification = models.CharField(max_length=255)
     usual_name = models.CharField(max_length=255)
@@ -21,30 +25,31 @@ class User(AbstractUser):
     full_name = models.CharField(max_length=255)
     preferred_email = models.EmailField(max_length=255)
     google_classroom_email = models.EmailField(max_length=255)
-    
-    def save(self, *args, **kwargs):
-        is_new = not self.pk
-        
-        super().save(*args, **kwargs)
-        
-        if is_new:
-            self.assign_group()
-        
+            
     def assign_group(self):
+        group_name = None
+        
         if self.role == 'Professor':
             group_name = 'professor'
-            
         elif self.role == 'Aluno':
             group_name = 'aluno'
-            
-        try:
-            group = Group.objects.get(name=group_name)
-            self.groups.add(group)
-        except Group.DoesNotExist:
-            print(f'Group {group_name} does not exist')
-    
+        
+        if group_name:
+            try:
+                group = Group.objects.get(name=group_name)
+                self.groups.add(group)
+            except Group.DoesNotExist:
+                print(f'Group {group_name} does not exist')
+
     def __str__(self):
         return self.full_name
+
+
+@receiver(post_save, sender=User)
+def user_post_save(sender, instance, **kwargs):
+    if not kwargs['created']:
+        instance.assign_group()
+
     
 class Print(models.Model):  
     STATUS_CHOICES = [

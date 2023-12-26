@@ -31,7 +31,7 @@ SECRET_KEY = 'django-insecure-(305eln#v#_(7ki375w6=us2a2ta_k!!3tf#ncjn!d$b6)*m_4
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
-ALLOWED_HOSTS = ["sgfi.vitorrafael.com.br", "192.168.0.118"]
+ALLOWED_HOSTS = ["sgfi.vitorrafael.com.br", "192.168.0.118", "10.112.6.162"]
 
 
 # Application definition
