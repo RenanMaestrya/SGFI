@@ -25,6 +25,17 @@
 
 <body>
 {% block main %}{% endblock %}
+
+<script>
+  function toggleMobileMenu() {
+    let nav = document.querySelector('nav.show-mobile');
+    if (nav) {
+      nav.style.display = nav.style.display === 'flex' ? 'none' : 'flex';
+    }
+  }
+</script>
 </body>
+
+
 
 </html>
