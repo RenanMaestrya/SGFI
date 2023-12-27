@@ -8,10 +8,10 @@
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/card.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/header.css' %}">
 <link rel="stylesheet" type="text/css" href="{% static 'css/components/input.css' %}">
-<link rel="stylesheet" type="text/css" href="{% static 'css/pages/401.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/pages/404.css' %}">
 {% endblock css %}
 
-{% block title %}Acesso não autorizado - SGFI{% endblock %}
+{% block title %}Página não encontrada - SGFI{% endblock %}
 
 {% block main %}
 
@@ -21,11 +21,11 @@
     
    <div class="img-container">
         <div class="title">
-            <h3 class="headline-3">Acesso não autorizado</h3>
-            <h5 class="subtitle-1">Você não tem permissão para acessar esta página</h5>
+            <h3 class="headline-3">Página não encontrada</h3>
+            <h5 class="subtitle-1">A menos que esteja em um universo paralelo, essa página não existe.</h5>
             <a href="{% url 'dashboard' %}" class="back body-2">Voltar para a página de dashboard</a>
         </div>
-        <img src="{% static 'assets/security.svg' %}" alt="Acesso não autorizado">
+        <img src="{% static 'assets/404.svg' %}" alt="Página não encontrada">
    </div>
 </div>
 

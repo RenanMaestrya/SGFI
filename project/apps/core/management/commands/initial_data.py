@@ -35,7 +35,7 @@ class Command(BaseCommand):
             withdraw_time = faker.time(),
             status = choice(['printed', 'withdrawn', 'pending']),
             withdrawn_at = faker.date(),
-        ) for _ in range(50)]
+        ) for _ in range(10)]
         
         Print.objects.bulk_create(prints)
         self.stdout.write(self.style.SUCCESS('Initial data loaded successfully'))

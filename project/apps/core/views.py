@@ -1,13 +1,11 @@
-from django.core.mail import EmailMessage
+
 from django.utils.html import strip_tags
 from typing import Any
 from django.db.models.query import QuerySet
-from django.forms.models import BaseModelForm
-from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 from .models import Print, User
 from .forms import PrintForm, WarningForm
-from django.views.generic import TemplateView, CreateView, ListView, UpdateView, DeleteView
+from django.views.generic import TemplateView, CreateView, ListView
 from django.urls import reverse_lazy
 from datetime import datetime
 from django.contrib.auth import logout
@@ -17,18 +15,10 @@ from django.utils.decorators import method_decorator
 from django.core.exceptions import ValidationError
 from django.contrib import messages
 from django.core.mail import send_mail
-import boto3
-from main.settings import (AWS_ACCESS_KEY_ID, AWS_S3_REGION_NAME,
-                          AWS_SECRET_ACCESS_KEY, SQS_QUEUE_URL, EMAIL_HOST_USER)
-from rolepermissions.decorators import has_permission_decorator
+from main.settings import (EMAIL_HOST_USER)
 from django.contrib.auth.mixins import AccessMixin
+from django.core.exceptions import PermissionDenied
 
-sqs = boto3.client(
-    "sqs",
-    aws_access_key_id=AWS_ACCESS_KEY_ID,
-    aws_secret_access_key=AWS_SECRET_ACCESS_KEY,
-    region_name=AWS_S3_REGION_NAME,
-)    
 
 def send_warning_email(receiver, title, body):
     send_mail(
@@ -76,7 +66,7 @@ class WarningCreateView(CreateView, AccessMixin):
         
         if not self.request.user.groups.filter(name="bolsista").exists() and \
         not self.request.user.groups.filter(name="gerente").exists():
-            return HttpResponse('Você não tem permissão para acessar esta página.', status=403)
+            raise PermissionDenied()
         
         return super().dispatch(request, *args, **kwargs)
     
@@ -122,7 +112,7 @@ class PrintListView(AccessMixin, ListView):
         if not self.request.user.groups.filter(name="professor").exists() and \
         not self.request.user.groups.filter(name="gerente").exists() and \
         not self.request.user.groups.filter(name="bolsista").exists():
-            return HttpResponse('Você não tem permissão para acessar esta página.', status=403)
+            raise PermissionDenied()
         
         return super().dispatch(request, *args, **kwargs)
     
@@ -130,11 +120,16 @@ class PrintListView(AccessMixin, ListView):
         context = super().get_context_data(**kwargs)
     
         if self.request.user.groups.filter(name="professor").exists():
-            context['withdrawn'] = self.get_filtered_prints('printed').order_by('withdraw_date')
-            context['withdrawn_count'] = self.get_filtered_prints('printed').count()
+            print(self.get_filtered_prints('withdrawn').order_by('withdraw_date'))
+            context['withdrawn'] = self.get_filtered_prints('withdrawn').order_by('withdraw_date')
+            context['withdrawn_count'] = self.get_filtered_prints('withdrawn').count()
         else:
-            context['withdrawn'] = self.get_filtered_prints('withdrawn').order_by('withdraw_date')[:10]
-            context['withdrawn_count'] = 10
+            context['withdrawn'] = self.get_filtered_prints('withdrawn').order_by('-withdrawn_at')[:10]
+            if self.get_filtered_prints('withdrawn').count() > 10:
+                context['withdrawn_count'] = 10
+                
+            else:
+                context['withdrawn_count'] = self.get_filtered_prints('withdrawn').count()
             
         context['pending'] = self.get_filtered_prints('pending').order_by('withdraw_date')
         context['printed'] = self.get_filtered_prints('printed').order_by('withdraw_date')
@@ -175,7 +170,7 @@ class PrintCreateView(CreateView, AccessMixin):
         if not self.request.user.groups.filter(name="professor").exists() and \
         not self.request.user.groups.filter(name="bolsista").exists() and \
         not self.request.user.groups.filter(name="gerente").exists():
-            return HttpResponse('Você não tem permissão para acessar esta página.', status=403)
+            raise PermissionDenied()
         
         return super().dispatch(request, *args, **kwargs)
     
@@ -206,7 +201,7 @@ class HistoryListView(ListView):
         
         if not self.request.user.groups.filter(name="bolsista").exists() and \
         not self.request.user.groups.filter(name="gerente").exists():
-            return HttpResponse('Você não tem permissão para acessar esta página.', status=403)
+            raise PermissionDenied()
         
         return super().dispatch(request, *args, **kwargs)
     
@@ -236,7 +231,7 @@ def PrintUpdateStatusView(request, pk, status):
     
     if not request.user.groups.filter(name="bolsista").exists() and \
     not request.user.groups.filter(name="gerente").exists():
-        return HttpResponse('Você não tem permissão para acessar esta página.', status=403)
+        raise PermissionDenied()
     
     print_request = Print.objects.get(pk=pk)
     print_request.status = status
