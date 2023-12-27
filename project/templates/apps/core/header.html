@@ -7,11 +7,12 @@
             <img src="{% static 'assets/logo.svg' %}" alt="Logo do SGFI">
         </a>
 
-        <button id="menu-icon" onclick="toggleMobileMenu()">
-            <img src="{% static 'assets/menu.svg' %}" alt="Ícone de menu">
-        </button>
+        
 
         {% if user.is_authenticated %}
+            <button id="menu-icon" onclick="toggleMobileMenu()">
+                <img src="{% static 'assets/menu.svg' %}" alt="Ícone de menu">
+            </button>
             {% if user|has_any_group:"gerente,bolsista" %}
                 <nav class="hide-mobile">
                     <a class="body-2 {% if request.path == '/aviso/' %} active-page {% endif %}" href="/aviso">Criar aviso</a>

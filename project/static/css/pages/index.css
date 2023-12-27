@@ -1,10 +1,11 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 400px;
+  max-width: 400px;
   justify-content: center;
   align-items: center;
   gap: 24px;
+  box-sizing: border-box;
 }
 
 #login-button {
@@ -12,6 +13,11 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+img {
+  width: 100%;
+  height: auto;
 }
 
 span[class^="subtitle"] {
@@ -40,4 +46,16 @@ h1 {
 a {
   text-decoration: none;
   color: var(--neutral-white);
+}
+
+
+@media screen and (max-width: 768px) {
+  .container { 
+    padding-inline: 16px;
+  }
+
+  .wrapper h1 {
+    font-size: 2rem;
+    line-height: 48px;
+  }
 }
